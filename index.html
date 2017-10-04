@@ -13,17 +13,15 @@
 	<div id="canvas" style="width:100%;height:80%;"></div>
 
 	<form>
-		<p>y^2 mod p = (x^3 + <input type="number" id="a"> x + <input type="number" id="b">) mod <input type="prime" id="p"></p>
+		<p>y^2 = x^3 + <input type="number" id="a"> x + <input type="number" id="b"></p>
 		<input type="submit" id="calc" value="Calculer">
 	</form>
-	
 
   	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<script type="text/javascript" src="js/Point.js"></script>
 	<script type="text/javascript" src="js/Elliptic.js"></script>
 
 	<script>
-
 
 		var calc = document.querySelector('#calc');
 
@@ -32,24 +30,12 @@
 
 			var a = document.querySelector('#a').value;
 			var b = document.querySelector('#b').value;
-			var p = document.querySelector('#p').value;
-			var k;
-			for(k=0; k<10; k++)
-			{
-				console.log(k);
-				draw(new Elliptic(a, b, p, k));
-			}
-			
+				draw(new Elliptic(a, b));
 		});
 
 
 		var canvas = document.getElementById('canvas');
 
-
-		
-
-
-		
 
 		function draw(e) {
 
@@ -143,11 +129,6 @@
     		alert('Closest point clicked:\n\n'+pts);
 		});
 		*/
-
-
-
-
-
 	</script>
 
 </body>
