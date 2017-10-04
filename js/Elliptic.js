@@ -1,10 +1,27 @@
 class Elliptic {
-	constructor(a, b) {
+	constructor(a, b, m = null) {
 		this.a = a;
 		this.b = b;
+		this.m = m
 	}
 
 	calc(x) {
+		if(this.m != null) {
+
+			if(x >= this.m ) {
+				throw new Exception('x(' + x + ') can\'t be greater than m(' + this.m + ')');
+			}
+
+
+			var results = []
+			var result = (parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b)) % this.m;
+			for(var i = 0; i < this.m; i++) {
+				if(Math.pow(i, 2) % this.m == result) {
+					results.push(i);
+				}
+			}
+			return results;
+		}
 		return Math.sqrt(parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b));
 	}
 
