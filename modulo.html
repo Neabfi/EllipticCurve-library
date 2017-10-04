@@ -2,16 +2,21 @@
 <html>
 <head>
 	<title>Elliptic</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+
+	<canvas id="canvas" width="720" height="720"></canvas>
 	
 
 	<script type="text/javascript" src="js/Point.js"></script>
 	<script type="text/javascript" src="js/Elliptic.js"></script>
+	<script type="text/javascript" src="js/Canvas.js"></script>
 
 	<script>
 
-
+		e = new Elliptic(-7, 10, 19, 'canvas');
+		e.drawModulo();
 
 	</script>
 

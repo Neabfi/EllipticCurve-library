@@ -1,8 +1,10 @@
 class Elliptic {
-	constructor(a, b, m = null) {
+	constructor(a, b, m = null, canvas = null) {
 		this.a = a;
 		this.b = b;
-		this.m = m
+		this.m = m;
+
+		this.canvas = new Canvas(canvas, this.m);
 	}
 
 	calc(x) {
@@ -55,6 +57,89 @@ class Elliptic {
 
 		return new Point(x3, y3);
 	}
+
+	drawModulo() {
+
+		this.canvas.clear();
+
+		let cell_width = this.canvas.width / (this.m + 2);
+
+		// Vertical lignes
+		for (let i = 0; i < this.m; i ++) {
+			let x = i * cell_width;
+			this.canvas.context.textAlign="center"; 
+			this.canvas.context.fillText(i,x + cell_width + 50, this.canvas.height - 10);
+		    this.canvas.context.moveTo(x + cell_width + 50, 0, 50);
+		    this.canvas.context.lineTo(this.canvas.x_coord(i), this.canvas.height - cell_width);
+		}
+
+
+		// Horizontal lines
+		for (let i = 0; i < this.m; i ++) {
+			let x = i * cell_width
+			this.canvas.context.textAlign="center"; 
+			this.canvas.context.fillText(i, 20, this.canvas.height - i * cell_width - cell_width * 2 + 5);
+		    this.canvas.context.moveTo(50, x + cell_width);
+		    this.canvas.context.lineTo(this.canvas.width, x + cell_width);
+		}
+
+		this.canvas.context.strokeStyle = "black";
+		this.canvas.context.stroke();
+
+
+		for(let x = 0; x < e.m; x++) {
+			let ys = e.calc(x);
+			for(let y_indice = 0; y_indice < ys.length; y_indice++) {
+				this.canvas.context.beginPath();
+				this.canvas.context.arc(this.canvas.x_coord(x), this.canvas.y_coord(ys[y_indice]),10,0,2*Math.PI);
+				this.canvas.context.fillStyle = "green";
+				this.canvas.context.fill();
+			}
+		}
+
+
+		/*
+
+		var canvas = document.querySelector('#' + canvasId);
+		var table = '<table>';
+
+		
+		table += '</tr>';
+		for(var i = e.m - 1; i >= 0; i--) {
+			table += '<tr>';
+				table += '<td> ' + i + ' </td>';
+
+
+				var solutions = e.calc(i);
+
+				for(var j = 0; j < e.m; j++) {
+
+					if(solutions.includes(j)) {
+						table += '<td class="solution"></td>';
+					} else {
+						table += '<td></td>';
+					}
+
+					
+				}
+			table += '</tr>';
+		}
+
+		table += '<tr>';
+		table += '<td></td>';
+		for(var j = 0; j < e.m; j++) {
+			table += '<td> ' + j + ' </td>';
+		}
+
+		table += '</table>';
+
+		canvas.innerHTML = table;
+
+		*/
+
+	}
+
+
 }
 
 function Exception(message) {
