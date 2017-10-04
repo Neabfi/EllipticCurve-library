@@ -1,11 +1,13 @@
 class Elliptic {
-	constructor(a, b) {
+	constructor(a, b, p, k) {
 		this.a = a;
 		this.b = b;
+		this.p = p;
+		this.k = k;
 	}
 
 	calc(x) {
-		return Math.sqrt(parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b));
+		return Math.sqrt(parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b) + parseInt(this.p)*parseInt(this.k));
 	}
 
 	sum(p1, p2) {
