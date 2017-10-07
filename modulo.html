@@ -6,7 +6,12 @@
 </head>
 <body>
 
-	<canvas id="canvas" width="720" height="720"></canvas>
+	<div id="page_container">
+		<div id="left_column"><canvas id="canvas" width="720" height="720"></canvas></div>
+		<div id="right_column"><span>y<sup>2</sup> = x<sup>3</sup> + <input type="number" name="" id="a"> x + <input type="number" name="" id="b"></span> mod(<input type="number" name="" id="m"></span>)</div>
+	</div>
+	
+	
 	
 
 	<script type="text/javascript" src="js/Point.js"></script>
@@ -15,8 +20,41 @@
 
 	<script>
 
-		e = new Elliptic(-7, 10, 19, 'canvas');
-		e.drawModulo();
+		let a = -7;
+		let b = 10;
+		let m = 18;
+
+		let a_dom = document.querySelector('#a');
+		let b_dom = document.querySelector('#b');
+		let m_dom = document.querySelector('#m');
+
+		a_dom.value = a;
+		b_dom.value = b;
+		m_dom.value = m;
+
+		refresh();
+
+		a_dom.addEventListener('change', function() {
+			a = a_dom.value;
+			refresh();
+		});
+
+		b_dom.addEventListener('change', function() {
+			b = b_dom.value;
+			refresh();
+		});
+
+		m_dom.addEventListener('change', function() {
+			m = m_dom.value;
+			refresh();
+		});
+
+		function refresh() {
+			let e = new Elliptic(a, b, m, 'canvas');
+			e.drawModulo();
+		}
+
+		
 
 	</script>
 

@@ -1,10 +1,12 @@
 class Elliptic {
 	constructor(a, b, m = null, canvas = null) {
-		this.a = a;
-		this.b = b;
-		this.m = m;
-
-		this.canvas = new Canvas(canvas, this.m);
+		this.a = parseFloat(a);
+		this.b = parseFloat(b);
+		if(m != null) this.m = parseFloat(m);
+		if(canvas != null) {
+			this.canvas = new Canvas(canvas, this.m);
+			this.canvas.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		}
 	}
 
 	calc(x) {
@@ -19,12 +21,15 @@ class Elliptic {
 			var result = (parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b)) % this.m;
 			for(var i = 0; i < this.m; i++) {
 				if(Math.pow(i, 2) % this.m == result) {
+
 					results.push(i);
 				}
 			}
 			return results;
 		}
-		return Math.sqrt(parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b));
+
+		let square = parseFloat(Math.pow(x, 3)) + parseFloat(this.a * x) + parseFloat(this.b);
+		return Math.sqrt(square);
 	}
 
 	sum(p1, p2) {
@@ -73,7 +78,6 @@ class Elliptic {
 		    this.canvas.context.lineTo(this.canvas.x_coord(i), this.canvas.height - cell_width);
 		}
 
-
 		// Horizontal lines
 		for (let i = 0; i < this.m; i ++) {
 			let x = i * cell_width
@@ -83,59 +87,48 @@ class Elliptic {
 		    this.canvas.context.lineTo(this.canvas.width, x + cell_width);
 		}
 
+		this.canvas.context.lineWidth=1;
 		this.canvas.context.strokeStyle = "black";
 		this.canvas.context.stroke();
 
 
-		for(let x = 0; x < e.m; x++) {
-			let ys = e.calc(x);
+		for(let x = 0; x < this.m; x++) {
+			let ys = this.calc(x);
 			for(let y_indice = 0; y_indice < ys.length; y_indice++) {
+
+				// Add solutions points
+
 				this.canvas.context.beginPath();
 				this.canvas.context.arc(this.canvas.x_coord(x), this.canvas.y_coord(ys[y_indice]),10,0,2*Math.PI);
 				this.canvas.context.fillStyle = "green";
 				this.canvas.context.fill();
+
+				// Draw curve
+
+				let k = Math.pow(ys[y_indice], 2) - Math.pow(x, 3) - this.a * x - this.b;
+
+				console.log(this.b + k)
+
+				let f = new Elliptic(this.a, this.b + k);
+
+				this.canvas.context.beginPath();
+
+				for(var i = -1; i <= this.m + 1; i = i + 0.01) {
+					let y = f.calc(i);
+					//if(isNaN(y)) this.canvas.context.beginPath();
+
+					if(y >= -1 && y <= this.m) this.canvas.context.lineTo(this.canvas.x_coord(i), this.canvas.y_coord(y));
+
+				}
+
+				this.canvas.context.lineWidth=3;
+				this.canvas.context.strokeStyle = "red";
+				this.canvas.context.stroke();
+				
 			}
 		}
 
 
-		/*
-
-		var canvas = document.querySelector('#' + canvasId);
-		var table = '<table>';
-
-		
-		table += '</tr>';
-		for(var i = e.m - 1; i >= 0; i--) {
-			table += '<tr>';
-				table += '<td> ' + i + ' </td>';
-
-
-				var solutions = e.calc(i);
-
-				for(var j = 0; j < e.m; j++) {
-
-					if(solutions.includes(j)) {
-						table += '<td class="solution"></td>';
-					} else {
-						table += '<td></td>';
-					}
-
-					
-				}
-			table += '</tr>';
-		}
-
-		table += '<tr>';
-		table += '<td></td>';
-		for(var j = 0; j < e.m; j++) {
-			table += '<td> ' + j + ' </td>';
-		}
-
-		table += '</table>';
-
-		canvas.innerHTML = table;
-
-		*/
 
 	}
 

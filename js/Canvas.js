@@ -5,9 +5,8 @@ class Canvas {
 		this.context = this.canvas.getContext("2d");
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
-		this.cellsCount = m;
+		this.cellsCount = parseFloat(m);
 		this.cell_width = this.width / (this.cellsCount + 2);
-
 		this.context.font = "15px Arial";
 	}
 
@@ -25,7 +24,7 @@ class Canvas {
 
 	// Logical to physical coord
 	y_coord(y) {
-		y = this.height - this.cell_width * y - this.cell_width * 2
+		y = this.height - this.cell_width * parseFloat(y) - this.cell_width * 2
 		return y;
 	}
 }
