@@ -1,4 +1,5 @@
 class Elliptic {
+
 	constructor(a, b, m = null, canvas = null) {
 		this.a = parseFloat(a);
 		this.b = parseFloat(b);

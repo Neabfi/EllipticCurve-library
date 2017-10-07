@@ -16,14 +16,12 @@
 		<p>y^2 = x^3 + <input type="number" id="a"> x + <input type="number" id="b"></p>
 		<input type="submit" id="calc" value="Calculer">
 	</form>
-	
 
   	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<script type="text/javascript" src="js/Point.js"></script>
 	<script type="text/javascript" src="js/Elliptic.js"></script>
 
 	<script>
-
 
 		var calc = document.querySelector('#calc');
 
@@ -32,29 +30,23 @@
 
 			var a = document.querySelector('#a').value;
 			var b = document.querySelector('#b').value;
-			draw(new Elliptic(a, b));
+				draw(new Elliptic(a, b));
 		});
 
 
 		var canvas = document.getElementById('canvas');
 
 
-		
-
-
-		
-
 		function draw(e) {
 
 			x = []
 			y = []
 
-			console.log(e.calc(1))
 			for(var i = -3; i < 4; i = i + 0.01) {
 				//i = Math.round(i * 100) / 100
 				x.push(i);
 				y.push(e.calc(i));
-				console.log(y)
+				//console.log(y)
 			}
 
 			x_reverse = x.slice().reverse();
@@ -81,8 +73,6 @@
 				y: y,
 			 	type: 'scatter'
 			};
-
-			console.log(e.calc(1))
 
 			p1 = new Point(0.5, e.calc(0.5))
 
@@ -120,7 +110,7 @@
 			  marker: { size: 12 }
 			};
 
-			var data = [trace1, trace2, trace3];
+			var data = [trace1];
 
 			Plotly.newPlot(canvas, data, layout);
 		}
@@ -139,11 +129,6 @@
     		alert('Closest point clicked:\n\n'+pts);
 		});
 		*/
-
-
-
-
-
 	</script>
 
 </body>
