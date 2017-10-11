@@ -3,12 +3,45 @@
 <head>
 	<title>Elliptic</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta charset="utf-8">
 </head>
 <body>
 
 	<div id="page_container">
-		<div id="left_column"><canvas id="canvas" width="720" height="720"></canvas></div>
-		<div id="right_column"><span>y<sup>2</sup> = x<sup>3</sup> + <input type="number" name="" id="a"> x + <input type="number" name="" id="b"></span> mod(<input type="number" name="" id="m"></span>)</div>
+		<div id="left_column">
+			<div class="card">
+				<canvas id="canvas" width="720" height="720"></canvas>
+			</div>
+		</div>
+
+		<div id="right_column">
+			<h1 class="title">Elliptic Curve</h1>
+			<div class="card" >
+				<div id="equation">
+					<span>y<sup>2</sup> = x<sup>3</sup> + <input type="number" name="" id="a"> x + <input type="number" name="" id="b"></span> mod(<input type="number" name="" id="m"></span>)
+				</div>
+				<div id ="equation_info"></div>
+			</div>
+			<div id="addition" class="card">
+				<h2>Addition</h2>
+				<p class="info">Click on the first point to add.</p>
+				<p class="content"></p>
+			</div>
+			<div id="multiplication" class="card disabled">
+				<h2>Multiplication</h2>
+			</div>
+			<div id="displayOptions" class="card">
+				<h2>Display Options</h2>
+				<div>
+					<input type="checkbox" id="displayCurve" name="displayCurve" value="displayCurve" checked>
+				    <label for="displayCurve">Hide curves</label>
+				</div>
+				<div>
+					<input type="checkbox" id="displayGrid" name="displayGrid" value="displayGrid">
+				    <label for="displayGrid">Hide grid</label>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	
@@ -20,9 +53,11 @@
 
 	<script>
 
+		let ellipticCurve;
+
 		let a = -7;
 		let b = 10;
-		let m = 18;
+		let m = 17;
 
 		let a_dom = document.querySelector('#a');
 		let b_dom = document.querySelector('#b');
@@ -34,27 +69,44 @@
 
 		refresh();
 
-		a_dom.addEventListener('change', function() {
-			a = a_dom.value;
-			refresh();
-		});
 
-		b_dom.addEventListener('change', function() {
-			b = b_dom.value;
-			refresh();
-		});
-
-		m_dom.addEventListener('change', function() {
-			m = m_dom.value;
-			refresh();
-		});
+		// Refresh on input change
+		var input = document.querySelectorAll('input');
+		for(var i=0;i<input.length;i++){
+	    	input[i].addEventListener('change', function(){  
+	    		refresh();
+	      	});
+	    }
 
 		function refresh() {
-			let e = new Elliptic(a, b, m, 'canvas');
-			e.drawModulo();
+			a = a_dom.value;
+			b = b_dom.value;
+			m = m_dom.value;
+			ellipticCurve = new Elliptic(a, b, m, 'canvas');
+			ellipticCurve.drawModulo();
 		}
 
-		
+
+		// Click on canvas
+
+		var canvas = document.querySelector('#canvas');
+
+		canvas.addEventListener('click', function(e) {
+			var x;
+			var y;
+			if (e.pageX || e.pageY) { 
+			  x = e.pageX;
+			  y = e.pageY;
+			} else { 
+			  x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+			  y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+			} 
+
+			x -= canvas.offsetLeft;
+			y -= canvas.offsetTop;
+
+			ellipticCurve.click(new Point(x, y));
+		});
 
 	</script>
 

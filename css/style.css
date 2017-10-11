@@ -1,3 +1,41 @@
-#page_container {
-    display: flex;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	background-color: #e8e8e8;
 }
+
+	#page_container {
+	    display: flex;
+	}
+		#right_column {
+			flex-grow: 1;
+		}
+
+			.title {
+				margin: 30px 10px;
+				color: #252525;
+			}
+
+			#equation {
+				//text-align: center;
+			}
+
+				#equation input {
+					width: 40px;
+					height: 20px;
+				}
+
+			.card {
+				background-color: white;
+				margin: 10px;
+				padding: 20px;
+				box-shadow: 1px black;
+			}
+
+
+
+
+.disabled {filter: opacity(35%);}
+
+

@@ -11,6 +11,7 @@ class Canvas {
 	}
 
 	clear() {
+		this.context.beginPath();
 		this.context.clearRect(0, 0, this.width, this.height);
 		this.context.beginPath();
 	}
