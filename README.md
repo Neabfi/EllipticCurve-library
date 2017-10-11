@@ -3,7 +3,7 @@ This is a program to visualize elliptic curves of equations :
 y^2=x^3+ax+b; as well as the addition of two points on the curve.
 
 
-# the different functions
+# The different functions
 To create an elliptical function use: Elliptic(a,b,m) corespondant à la fonction (x^3 + ax + b)%m 
 
 To calculate at a point x the value of your function use : calc(x)
