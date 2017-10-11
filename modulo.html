@@ -10,25 +10,27 @@
 	<div id="page_container">
 		<div id="left_column">
 			<div class="card">
-				<canvas id="canvas" width="720" height="720"></canvas>
+				<canvas id="canvas" width="700" height="700"></canvas>
 			</div>
 		</div>
 
 		<div id="right_column">
-			<h1 class="title">Elliptic Curve</h1>
+			<h1 class="title">ELLIPTIC CURVE</h1>
 			<div class="card" >
 				<div id="equation">
 					<span>y<sup>2</sup> = x<sup>3</sup> + <input type="number" name="" id="a"> x + <input type="number" name="" id="b"></span> mod(<input type="number" name="" id="m"></span>)
 				</div>
 				<div id ="equation_info"></div>
 			</div>
-			<div id="addition" class="card">
-				<h2>Addition</h2>
-				<p class="info">Click on the first point to add.</p>
-				<p class="content"></p>
-			</div>
-			<div id="multiplication" class="card disabled">
-				<h2>Multiplication</h2>
+			<div class="card menu_card">
+				<div class="menu">
+					<div class="delimiter_right selected">Addition</div>
+					<div>Multiplication</div>
+				</div>
+				<div>
+					<div id="info">Click on a point</div>
+					<p id="content" class="menu_card_content"></p>
+				</div>
 			</div>
 			<div id="displayOptions" class="card">
 				<h2>Display Options</h2>

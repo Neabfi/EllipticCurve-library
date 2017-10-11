@@ -54,17 +54,17 @@ class Elliptic {
 
 	sum(p1, p2) {
 
-		// If sum equals infinity
-		//if(p1.y == - p2.y) throw new Exception('Infinity');
-
 		// If same point
 		if(p1.x == p2.x && p1.y == p2.y) {
 
 			if(p1.y == 0) throw new Exception('Infinity');
 
-			var m = (3 * Math.pow(p1.x, 2) + this.a) / (2 * p1.y);
 
-			if(this.m != null) m %= this.m;
+			if(this.m != null) {
+				var m = (3 * Math.pow(p1.x, 2) + this.a ) * this.inverseOf( 2 * p1.y );
+			} else {
+				var m = (3 * Math.pow(p1.x, 2) + this.a) / (2 * p1.y);
+			}
 
 		} else {
 			
@@ -73,10 +73,6 @@ class Elliptic {
 			} else {
 				var m = (p2.y - p1.y) / (p2.x - p1.x);
 			}
-
-			
-
-
 		}
 
 		var x3 = Math.pow(m, 2) - p1.x - p2.x;
@@ -92,6 +88,14 @@ class Elliptic {
 		return new Point(x3, y3);
 	}
 
+	mult(p, n) {
+		for(let i = 1; i < n; i++) {
+			p = this.sum(p, p)
+		}
+
+		return p;
+	}
+ 
 	inverseOf(n) {
         n = ( +n ) % this.m;
 
@@ -211,11 +215,13 @@ class Elliptic {
 		console.log(nearestPoint);
 		this.canvas.context.beginPath();
 
+		let info = document.querySelector('#info');
+		let content = document.querySelector('#content');
+
 		switch(this.mode) {
 			case 'add':
 
-				let info = document.querySelector('#addition .info');
-				let content = document.querySelector('#addition .content');
+				
 
 				if(this.pointsToAdd.length % 2 == 0) {
 					if(this.pointsToAdd.length != 0) {
@@ -239,7 +245,7 @@ class Elliptic {
 				this.canvas.context.fill();
 
 				if(this.pointsToAdd.length % 2 == 0) {
-					//this.drawLine();
+					this.drawLine();
 					let result = this.sum(this.pointsToAdd[0], this.pointsToAdd[1])
 					this.canvas.context.fillStyle = COLOR_C;
 					content.innerHTML += '<span style="color: ' + COLOR_C + ';">C (' + result.x + ', ' + result.y + ')</span>';

@@ -2,8 +2,22 @@
 
 body {
 	font-family: 'Open Sans', sans-serif;
-	background-color: #e8e8e8;
+	background-color: #f1f1f1;
+	font-weight: 200;
 }
+
+
+.card {
+	background-color: white;
+	margin: 10px;
+	padding: 20px;
+	box-shadow: 1px 1px rgb(200, 200, 200);
+}
+
+.delimiter_right {
+	border-right: 1px #a4a4a4 solid;
+}
+
 
 	#page_container {
 	    display: flex;
@@ -15,6 +29,33 @@ body {
 			.title {
 				margin: 30px 10px;
 				color: #252525;
+				font-weight: 300;
+			}
+
+			#equation {
+				font-size: 1.3em;
+			}
+
+			.menu_card {
+				padding:0;
+			}
+
+				.menu {
+					display: flex;
+				}
+
+					.menu > div {
+						flex: 1;
+						text-align: center;
+						padding: 15px;
+					}
+
+					.menu .selected {
+						background-color: #e4e4e4;
+					}
+
+			.menu_card_content {
+				height: 100px;
 			}
 
 			#equation {
@@ -26,12 +67,7 @@ body {
 					height: 20px;
 				}
 
-			.card {
-				background-color: white;
-				margin: 10px;
-				padding: 20px;
-				box-shadow: 1px black;
-			}
+			
 
 
 
