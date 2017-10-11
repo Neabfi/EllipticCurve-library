@@ -1,5 +1,5 @@
 # EllipticCurve
-This is a program to visualize elliptic curves of equations :
+This is a program to visualize elliptic curve of equation :
 y^2=x^3+ax+b; as well as the addition of two points on the curve.
 
 
