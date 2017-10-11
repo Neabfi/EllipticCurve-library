@@ -11,7 +11,7 @@ To calculate at a point x the value of your function use : **calc(x)**
 To create a point p of the abscissa x belonging to the curve e use :  **p = new Point(x, e.calc(x))**
 
 To plot the curve of an elliptic named e use: **draw(e)**
-
+![alt tag](https://user-images.githubusercontent.com/32454889/31433775-a581fbc0-ae7a-11e7-8ce6-4538093e4afa.PNG)
 To calculate the coordinates of a point from two other to the curve e use: **e.sum(p1, p2)** 
 
 # Representation Elliptic Curve and Modulo
