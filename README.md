@@ -14,5 +14,5 @@ To plot the curve of an elliptic named e use: draw(e)
 
 To calculate the coordinates of a point from two other to the curve e use: e.sum(p1, p2) 
 
-# Representation Modulo
+# Representation Elliptic Curve and Modulo
 ![alt tag](https://user-images.githubusercontent.com/32454889/31430973-ae3d61f8-ae72-11e7-96f1-c41a9287d0a5.PNG)
