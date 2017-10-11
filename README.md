@@ -8,7 +8,7 @@ To create an elliptical function use: **Elliptic(a,b,m)** corresponding to the f
 
 To calculate at a point x the value of your function use : **calc(x)**
 
-To create a point p of the abscissa x belonging to the curve e use : p = new Point(x, e.calc(x)) 
+To create a point p of the abscissa x belonging to the curve e use :  **p = new Point(x, e.calc(x))**
 
 To plot the curve of an elliptic named e use: **draw(e)**
 
