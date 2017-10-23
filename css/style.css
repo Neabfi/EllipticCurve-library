@@ -42,6 +42,7 @@ body {
 
 				.menu {
 					display: flex;
+					height : 50px;
 				}
 
 					.menu > div {
@@ -53,6 +54,10 @@ body {
 					.menu .selected {
 						background-color: #e4e4e4;
 					}
+					
+
+
+
 
 			.menu_card_content {
 				height: 100px;
