@@ -245,7 +245,7 @@ class Elliptic {
 				this.canvas.context.fill();
 
 				if(this.pointsToAdd.length % 2 == 0) {
-					//this.drawLine();
+					this.drawLine();
 					let result = this.sum(this.pointsToAdd[0], this.pointsToAdd[1])
 					this.canvas.context.fillStyle = COLOR_C;
 					content.innerHTML += '<span style="color: ' + COLOR_C + ';">C (' + result.x + ', ' + result.y + ')</span>';
@@ -257,9 +257,8 @@ class Elliptic {
 				}
 
 				break;
-			case 'mult':
-
 				
+			case 'mult':
 
 				if(this.pointsToAdd.length % 2 == 0) {
 					if(this.pointsToAdd.length != 0) {
@@ -295,7 +294,7 @@ class Elliptic {
 				}
 
 				break;
-		}
+		}		
 	}
 
 	drawLine() {
@@ -353,3 +352,12 @@ function Exception(message) {
    this.message = message;
    this.name = "Exception";
 }
+
+/*fonction pour les boutons
+$(function(){
+   $('.tonBoutton').click(function(){
+      $('.tonDiv').toggle() // AFFICHE ET CACHE A CHAQUE CLIQUE SUR LE BOUTTON
+   });
+});
+*/
+
