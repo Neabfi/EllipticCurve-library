@@ -221,7 +221,7 @@ class Elliptic {
 		switch(this.mode) {
 			case 'add':
 
-				
+
 
 				if(this.pointsToAdd.length % 2 == 0) {
 					if(this.pointsToAdd.length != 0) {
@@ -267,13 +267,13 @@ class Elliptic {
 						this.drawModulo();
 					}
 					this.pointsToAdd.push(nearestPoint);
-					info.innerHTML = 'Click on the second point to add.';
+					info.innerHTML = 'Now enter an integer n.';
 					content.innerHTML = '<span style="color: ' + COLOR_A + ';">A (' + nearestPoint.x + ', ' + nearestPoint.y + ')</span> + ';
 					this.canvas.context.fillStyle = COLOR_A;
 					this.canvas.context.fillText('A (' + nearestPoint.x + ', ' + nearestPoint.y + ')',this.canvas.x_coord(nearestPoint.x), this.canvas.y_coord(nearestPoint.y) - 12);
 				} else {
-					this.pointsToAdd.push(nearestPoint);
-					info.innerHTML = 'Here is your result, click on a point to make another addition.';
+					this.numbern.push(this.n);
+					info.innerHTML = 'Here is your result, click on a new point to make another multiplication.';
 					content.innerHTML += '<span style="color: ' + COLOR_B + ';">B (' + nearestPoint.x + ', ' + nearestPoint.y + ')</span> = ';
 					this.canvas.context.fillStyle = COLOR_B;
 					this.canvas.context.fillText('B (' + nearestPoint.x + ', ' + nearestPoint.y + ')',this.canvas.x_coord(nearestPoint.x), this.canvas.y_coord(nearestPoint.y) + 22);
@@ -284,14 +284,14 @@ class Elliptic {
 
 				if(this.pointsToAdd.length % 2 == 0) {
 					//this.drawLine();
-					let result = this.sum(this.pointsToAdd[0], this.pointsToAdd[1])
+					let result = this.mult(this.pointsToAdd[0], this.numbern)
 					this.canvas.context.fillStyle = COLOR_C;
 					content.innerHTML += '<span style="color: ' + COLOR_C + ';">C (' + result.x + ', ' + result.y + ')</span>';
 					this.canvas.context.beginPath();
 					this.canvas.context.arc(this.canvas.x_coord(result.x), this.canvas.y_coord(result.y),POINT_SIZE,0,2*Math.PI);
 					this.canvas.context.fillText('C (' + result.x + ', ' + result.y + ')',this.canvas.x_coord(result.x), this.canvas.y_coord(result.y) + 22);
 					this.canvas.context.fill();
-					console.log(this.sum(this.pointsToAdd[0], this.pointsToAdd[1]));
+					console.log(this.mult(this.pointsToAdd[0], this.numbern));
 				}
 
 				break;

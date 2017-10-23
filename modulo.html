@@ -28,7 +28,7 @@
 					<div id="menu_multiplication">Multiplication</div>
 				</div>
 				<div id="content_container">
-					<div id="info">Click on a point</div>
+					<div id="info">Click on a point. <BR/> Enter n :<input type="number" name="n" id="n"></div>
 					<p id="content" class="menu_card_content"></p>
 				</div>
 			</div>
@@ -65,10 +65,12 @@
 		let a_dom = document.querySelector('#a');
 		let b_dom = document.querySelector('#b');
 		let m_dom = document.querySelector('#m');
+		let n_dom = document.querySelector('#n');
 
 		a_dom.value = a;
 		b_dom.value = b;
 		m_dom.value = m;
+		n_dom.value = n;
 
 		refresh();
 
@@ -85,6 +87,7 @@
 			a = a_dom.value;
 			b = b_dom.value;
 			m = m_dom.value;
+			n = n_dom.value
 			ellipticCurve = new Elliptic(a, b, m, 'canvas');
 			ellipticCurve.drawModulo();
 		}
