@@ -42,6 +42,7 @@ body {
 
 				.menu {
 					display: flex;
+					cursor: pointer;
 				}
 
 					.menu > div {
