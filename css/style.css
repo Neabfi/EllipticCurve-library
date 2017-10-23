@@ -14,7 +14,7 @@ body {
 	box-shadow: 1px 1px rgb(200, 200, 200);
 }
 
-.delimiter_right {
+.delimiter_right  {
 	border-right: 1px #a4a4a4 solid;
 }
 
@@ -42,15 +42,14 @@ body {
 
 				.menu {
 					display: flex;
-					height : 50px;
+					cursor:pointer;
 				}
-
-					.menu > div {
-						flex: 1;
+					.menu > button {
+						flex : 1;
 						text-align: center;
 						padding: 15px;
 					}
-
+					
 					.menu .selected {
 						background-color: #e4e4e4;
 					}
@@ -79,4 +78,12 @@ body {
 
 .disabled {filter: opacity(35%);}
 
+.Bouton{
+background:#F2F2F2;
+}
 
+#content_container >div  {
+display:none;
+flex: 1;
+text-align: center;
+}
