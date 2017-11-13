@@ -1,3 +1,11 @@
+/**
+ * Elliptic Curve class
+ * @param {number} a
+ * @param {number} b
+ * @param {number} m modulo
+ * @example
+ * let ec = new Elliptic(-7, 10);
+ */
 class Elliptic {
 
 	constructor(a, b, m = null) {
@@ -6,6 +14,13 @@ class Elliptic {
         this.m = m;
 	}
 
+    /**
+     * Calculates the y for a given x
+     * @param {number} x any number
+     * @returns {undefined} y or [y, -y]
+	 * @example
+     * ec.calc(4)
+     */
 	calc(x) {
 
         let y = Math.pow(x, 3) + this.a * x + this.b;
@@ -26,13 +41,30 @@ class Elliptic {
 		return y === -y ? y : [y, -y];
 	}
 
+    /**
+     * Sums two points of the curve
+     * @param {Point} p1 First point to add
+     * @param {Point} p2 Second point to add
+     * @returns {Point} Result point
+     * @example
+     * let p1 = new Point(1, 2);
+     * let p2 = new Point(3, 4);
+     * ec.sum(p1, p2);
+     */
 	sum(p1, p2) {
 
+
+	    // Neutre checker
+        if(p1.x === 0 && p1.z === 0) { return p2;}
+        if(p2.x === 0 && p2.z === 0) { return p1;}
+
 		let m;
-// If same point
+
+		// If same point
 		if(p1.x === p2.x && p1.y === p2.y) {
 
-			if(p1.y === 0) throw new Exception('Infinity');
+		    // Infinity
+			if(p1.y === 0) return new Point(0, 1, 0);
 
 
 			if(this.m !== null) {
@@ -63,12 +95,32 @@ class Elliptic {
 		return new Point(x3, y3);
 	}
 
-	mult(p, n) {
-		for(let i = 1; i < n; i++) {
-			p = this.sum(p, p)
+    /**
+     * Multiplies two points of the curve
+     * @param {Point} p point to multiply
+     * @param {Number} d value to multiply
+     * @returns {Point} Result point
+     * @example
+     * let ellipticCurve = new Elliptic(-7, 10);
+     * let point = new Point(1, 2);
+     * ellipticCurve.mult(point, 2);
+     * // Return  Point(x = -1, y = -4, z = 1)
+     */
+	mult(p, d) {
+		let n = p;
+        let q = 0;
+        let binaryString = d.toString(2);
+        for (let i = 0; i < binaryString.length; i++) {
+            if(binaryString[binaryString.length - i - 1] === '1') {
+                if (q === 0) {
+                    q =  n;
+                } else {
+                    q = this.sum(q, n);
+                }
+            }
+            n = this.sum(n, n);
 		}
-
-		return p;
+        return q;
 	}
  
 	inverseOf(n) {
@@ -85,5 +137,9 @@ class Elliptic {
         }
 
         return NaN;
-    };
+    }
+
+    division() {
+
+    }
 }

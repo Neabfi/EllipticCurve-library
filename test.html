@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Elliptic</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<script type="text/javascript" src="js/Point.js"></script>
+	<script type="text/javascript" src="js/Elliptic.js"></script>
+	<script>
+
+		let ec, p1, p2, p3, d;
+
+		// Addition continue
+		console.log('Addition continue');
+
+		ec = new Elliptic(-7, 10);
+		p1 = new Point(1, 2);
+        p2 = new Point(3, 4);
+        p3 = ec.sum(p1, p2);
+
+        if(p3.x === -3 && p3.y === 2) {
+            console.log('OK, x = ' + p3.x + ' and y = ' + p3.y);
+		} else {
+            console.log('FAIL, x = ' + p3.x + ' and y = ' + p3.y + ' must be x = -3 and y = 2');
+		}
+
+        ec = new Elliptic(-7, 10);
+        p1 = new Point(-3.18, 0);
+        p2 = ec.sum(p1, p1);
+
+        if(p2.x === 0 && p2.y === 1 && p2.z == 0) {
+            console.log('OK, x = ' + p2.x + ' and y = ' + p2.y + ' and z = ' + p2.z);
+        } else {
+            console.log('FAIL, x = ' + p2.x + ' and y = ' + p2.y + ' and z = ' + p2.z + ' must be x = 0 and y = 1 and z = 0 ');
+        }
+
+        // Multiplication continue
+        console.log('Multiplication continue');
+
+        ec = new Elliptic(-7, 10);
+        d = 2;
+        p1 = new Point(1, 2);
+        p2 = ec.mult(p1, d);
+
+        if(p2.x === -1 && p2.y === -4) {
+            console.log('OK, x = ' + p2.x + ' and y = ' + p2.y);
+        } else {
+            console.log('FAIL, x = ' + p2.x + ' and y = ' + p2.y + ' must be x = -1 and y = -4');
+        }
+
+
+		// Addition discrète
+        console.log('Addition discrète');
+
+        ec = new Elliptic(-7, 10, 97);
+        p1 = new Point(17, 10);
+        p2 = new Point(95, 31);
+        p3 = ec.sum(p1, p2);
+
+        if(p3.x === 1 && p3.y === 54) {
+            console.log('OK, x = ' + p3.x + ' and y = ' + p3.y);
+        } else {
+            console.log('FAIL, x = ' + p3.x + ' and y = ' + p3.y + ' must be x = 1 and y = 54');
+        }
+
+
+		// Multiplication discrète
+
+        ec = new Elliptic(2, 3, 97);
+        d = 2;
+        p1 = new Point(3, 6);
+        p2 = ec.mult(p1, d);
+
+        if(p2.x === 80 && p2.y === 10) {
+            console.log('OK, x = ' + p2.x + ' and y = ' + p2.y);
+        } else {
+            console.log('FAIL, x = ' + p2.x + ' and y = ' + p2.y + ' must be x = 80 and y = 10');
+        }
+
+	</script>
+</body>
+</html>
