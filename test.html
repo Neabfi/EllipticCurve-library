@@ -5,21 +5,44 @@
 	<meta charset="utf-8">
 </head>
 <body>
-
+    <script type="text/javascript" src="js/exeptions.js"></script>
+    <script type="text/javascript" src="js/Scalar.js"></script>
+    <script type="text/javascript" src="js/fields/Field.js"></script>
+    <script type="text/javascript" src="js/fields/ModuloField.js"></script>
 	<script type="text/javascript" src="js/Point.js"></script>
-	<script type="text/javascript" src="js/Elliptic.js"></script>
+	<script type="text/javascript" src="js/EllipticCurve.js"></script>
 	<script>
 
-		let ec, p1, p2, p3, d;
 
+        // The elliptic curve y^2 = x^3 - 7x + 10
+        let ellipticCurve = new EllipticCurve(-7, 10);
+
+        // The field
+        let mod97Field = new ModuloField(97);
+
+        // The points
+        let p1 = new Point(new Scalar(mod97Field, 17), new Scalar(mod97Field, 10));
+        let p2 = new Point(new Scalar(mod97Field, 95), new Scalar(mod97Field, 31));
+
+        let p3 = ellipticCurve.sum(p1, p2);
+
+
+
+		//let ec, p1, p2, p3, d;
+
+
+		/*
 		// Addition continue
 		console.log('Addition continue');
 
 		ec = new Elliptic(-7, 10);
-		p1 = new Point(1, 2);
-        p2 = new Point(3, 4);
-        p3 = ec.sum(p1, p2);
+		mo
 
+		p1 = new Point(new Scalar(1), new RationalNumber(2));
+        p2 = new Point(new RationalNumber(3), new RationalNumber(4));
+        p3 = ec.sum(p1, p2);
+        */
+        /*
         if(p3.x === -3 && p3.y === 2) {
             console.log('OK, x = ' + p3.x + ' and y = ' + p3.y);
 		} else {
@@ -78,6 +101,7 @@
         } else {
             console.log('FAIL, x = ' + p2.x + ' and y = ' + p2.y + ' must be x = 80 and y = 10');
         }
+        */
 
 	</script>
 </body>

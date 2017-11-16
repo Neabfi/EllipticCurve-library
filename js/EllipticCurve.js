@@ -6,7 +6,7 @@
  * @example
  * let ec = new Elliptic(-7, 10);
  */
-class Elliptic {
+class EllipticCurve {
 
 	constructor(a, b, m = null) {
 		this.a = a;
@@ -47,17 +47,36 @@ class Elliptic {
      * @param {Point} p2 Second point to add
      * @returns {Point} Result point
      * @example
-     * let p1 = new Point(1, 2);
-     * let p2 = new Point(3, 4);
-     * ec.sum(p1, p2);
+     * let p = new Point(3, 2);
+     * let q = new Point(0, 1, 0); // Neutral
+     * ec.sum(p, q); // x = 3, y = 2, z = 1
      */
 	sum(p1, p2) {
 
+		// Check if p1 is neutral
+        if(p1.x.eq(0) && p1.z.eq(0)) { return p2;}
 
-	    // Neutre checker
-        if(p1.x === 0 && p1.z === 0) { return p2;}
-        if(p2.x === 0 && p2.z === 0) { return p1;}
+        // Check if p2 is neutral
+        if(p2.x.eq(0) && p2.z.eq(0)) { return p1;}
 
+		// If p1 and p2 are the same point
+        if(p1.eq(p2)) {
+
+        } else { // If p1 and p2 are not the same point
+            console.log(p1.x.mul(p2.z));
+			let u = p1.x.mul(p2.z).sub(p2.x.mul(p1.z));
+			let v = p1.y.mul(p2.z).sub(p2.y.mul(p1.z));
+			let w = p1.x.mul(p2.y).sub(p2.x.sub(p1.y));
+			let s = p1.x.mul(p2.z).add(p2.x.mul(p1.z));
+			let t = p1.z.mul(p2.z);
+
+			return new Point(
+			    new Scalar(p1.x.field, t.mul(u).mul(v).mul(v).sub(s.mul(u).mul(u).mul(u))),
+                new Scalar(p1.x.field, s.mul(u).mul(u).mul(v).sub(t.mul(u).mul(u).mul(w)).sub(t.mul(v).mul(v).mul(v))),
+                new Scalar(p1.x.field, t.mul(u).mul(u).mul(u)));
+		}
+
+		/*
 		let m;
 
 		// If same point
@@ -93,6 +112,8 @@ class Elliptic {
 		}
 
 		return new Point(x3, y3);
+
+		*/
 	}
 
     /**
