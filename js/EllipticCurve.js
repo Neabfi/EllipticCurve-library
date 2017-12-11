@@ -1,44 +1,49 @@
+if (typeof require === 'function') {
+    var Scalar = require('./Scalar');
+    var Point = require('./Point');
+    var ModuloField = require('./fields/ModuloField');
+}
+
 /**
  * Elliptic Curve class
  * @param {number} a
  * @param {number} b
- * @param {number} m modulo
  * @example
  * let ec = new Elliptic(-7, 10);
  */
 class EllipticCurve {
 
-	constructor(a, b, m = null) {
+	constructor(a, b) {
 		this.a = a;
 		this.b = b;
-        this.m = m;
 	}
 
     /**
-     * Calculates the y for a given x
+     * Return points on the curve for a given x
      * @param {number} x any number
-     * @returns {undefined} y or [y, -y]
+     * @returns {undefined} array of points
 	 * @example
      * ec.calc(4)
      */
 	calc(x) {
-
-        let y = Math.pow(x, 3) + this.a * x + this.b;
-
-		if(this.m !== null) {
-            let results = [];
-
-            for(let i = 0; i < this.m; i++) {
-				if(Math.pow(i, 2) % this.m === y) results.push(i);
+        let y =  x.mul(this.a).add(x.mul(x.mul(x))).add(this.b);
+		if(x.field instanceof ModuloField) {
+            let points = [];
+            for(let i = 0; i < y.field.m; i++) {
+                if(y.eq(Math.pow(i, 2))) points.push(new Point(x, new Scalar(y.field, i)));
 			}
-
-			return results;
+			return points;
 		}
 
-		if(y < 0) return NaN;
+		if(y.value < 0) return NaN;
 
-		y = Math.sqrt(y);
-		return y === -y ? y : [y, -y];
+		y.value = Math.sqrt(y.value);
+
+		if(y.value === -(y.value)) {
+		    return [new Point(x, y)]
+        } else {
+            return [new Point(x, y), new Point(x, new Scalar(y.field, -y.value))];
+        }
 	}
 
     /**
@@ -52,8 +57,7 @@ class EllipticCurve {
      * ec.sum(p, q); // x = 3, y = 2, z = 1
      */
 	sum(p1, p2) {
-
-		// Check if p1 is neutral
+        // Check if p1 is neutral
         if(p1.x.eq(0) && p1.z.eq(0)) { return p2;}
 
         // Check if p2 is neutral
@@ -63,17 +67,15 @@ class EllipticCurve {
         if(p1.eq(p2)) {
 
         } else { // If p1 and p2 are not the same point
-            console.log(p1.x.mul(p2.z));
 			let u = p1.x.mul(p2.z).sub(p2.x.mul(p1.z));
 			let v = p1.y.mul(p2.z).sub(p2.y.mul(p1.z));
 			let w = p1.x.mul(p2.y).sub(p2.x.sub(p1.y));
 			let s = p1.x.mul(p2.z).add(p2.x.mul(p1.z));
 			let t = p1.z.mul(p2.z);
-
+			let z = t.mul(u).mul(u).mul(u);
 			return new Point(
-			    new Scalar(p1.x.field, t.mul(u).mul(v).mul(v).sub(s.mul(u).mul(u).mul(u))),
-                new Scalar(p1.x.field, s.mul(u).mul(u).mul(v).sub(t.mul(u).mul(u).mul(w)).sub(t.mul(v).mul(v).mul(v))),
-                new Scalar(p1.x.field, t.mul(u).mul(u).mul(u)));
+                (t.mul(u).mul(v).mul(v).sub(s.mul(u).mul(u).mul(u))).div(z),
+                (s.mul(u).mul(u).mul(v).sub(t.mul(u).mul(u).mul(w)).sub(t.mul(v).mul(v).mul(v))).div(z))
 		}
 
 		/*
@@ -143,24 +145,10 @@ class EllipticCurve {
 		}
         return q;
 	}
- 
-	inverseOf(n) {
-        n = ( +n ) % this.m;
-
-        if( n < 0 ) {
-            n = n + this.m;
-        }
-
-        for(let m = 0; m < this.m; m += 1 ) {
-            if( ( n * m ) % this.m === 1 ) {
-                return m;
-            }
-        }
-
-        return NaN;
-    }
 
     division() {
 
     }
 }
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = EllipticCurve;

@@ -1,3 +1,7 @@
+if (typeof require === 'function') {
+    var Scalar = require('./Scalar');
+}
+
 /**
  * Represent a 3 dimensions point
  * @param {Scalar} x
@@ -36,3 +40,5 @@ class Point {
 		return this.x.eq(p.x) && this.y.eq(p.y) && this.z.eq(p.z);
     }
 }
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = Point;

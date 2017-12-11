@@ -15,7 +15,7 @@
 
 
         // The elliptic curve y^2 = x^3 - 7x + 10
-        let ellipticCurve = new EllipticCurve(-7, 10);
+        let ellipticCurve = new EllipticCurve(2, 3);
 
         // The field
         let mod97Field = new ModuloField(97);
@@ -23,10 +23,11 @@
         // The points
         let p1 = new Point(new Scalar(mod97Field, 17), new Scalar(mod97Field, 10));
         let p2 = new Point(new Scalar(mod97Field, 95), new Scalar(mod97Field, 31));
+        //let p2 = new Point(new Scalar(mod97Field, 0), new Scalar(mod97Field, 31), new Scalar(mod97Field, 0));
 
         let p3 = ellipticCurve.sum(p1, p2);
 
-
+		console.log(p3)
 
 		//let ec, p1, p2, p3, d;
 
