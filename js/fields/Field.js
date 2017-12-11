@@ -63,13 +63,32 @@ class Field {
     }
 
     /**
-     * Division operation (Can be overridden for better performances)
+     * Division operation
      * @param {element} element1 quotient
      * @param {element} element2 dividend
      * @returns {element} Result of the division
      */
     div(element1, element2) {
         throw new Error('method div not implemented');
+    }
+
+    /**
+     * Pow operation
+     * @param {element} base base
+     * @param {element} exponent exponent
+     * @returns {element} Result of the pow
+     */
+    pow(base, exponent) {
+        throw new Error('method pow not implemented');
+    }
+
+    /**
+     * Square root operation
+     * @param {element} element base
+     * @returns {element} Result of the pow
+     */
+    sqrt(element) {
+        throw new Error('method sqrt not implemented');
     }
 
     /**
@@ -82,9 +101,7 @@ class Field {
         throw new Error('method eq not implemented');
     }
 
-    sqrt() {
 
-    }
 }
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = Field;

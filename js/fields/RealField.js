@@ -16,11 +16,9 @@ class RealField extends Field {
         return element1 + element2;
     }
 
-    additiveInv()
-
-    /* Implement mul method */
-    mul(element1, element2) {
-        return element1 * element2;
+    /* Implement additiveInv method */
+    additiveInv(element) {
+       return  -element;
     }
 
     /* Implement sub method */
@@ -28,26 +26,48 @@ class RealField extends Field {
         return element1 - element2;
     }
 
+    /* Implement mul method */
+    mul(element1, element2) {
+        return element1 * element2;
+    }
+
+    /* Implement multiplicativeInv method */
+    multiplicativeInv(element) {
+        return  1/element;
+    }
+
     /* Implement div method */
     div(element1, element2) {
         return element1 / element2;
     }
 
+    /* Implement pow method */
+    pow(base, exponent) {
+        return Math.pow(base, exponent);
+    }
+
+    /* Implement sqrt method */
+    sqrt(element) {
+        return Math.sqrt(element);
+    }
+
     /* Implement eq method */
     eq(element1, element2) {
         // soustraction
-        return element1 === element2;
+        return Math.abs(this.sub(element1 - element2)) < this.EPSILON;
     }
 
+    /* Implement isZero method */
     isZero(element) {
-       // 0
+        return eq(element, 0);
     }
 
-    isOne() {
-
+    /* Implement isOne method */
+    isOne(element) {
+        return eq(element, 1)
     }
-
-    pow
 }
+
+RealField.EPSILON = 0.0001;
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = RealField;

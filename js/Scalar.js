@@ -24,6 +24,11 @@ class Scalar {
         return new Scalar(this.field, this.field.add(this.value, other));
     }
 
+
+    additiveInv() {
+        return new Scalar(this.field, this.field.additiveInv(this.value));
+    }
+
     sub(other) {
 
         // If other is a Scalar instance
@@ -48,6 +53,10 @@ class Scalar {
         return new Scalar(this.field, this.field.mul(this.value, other));
     }
 
+    multiplicativeInv() {
+        return new Scalar(this.field, this.field.multiplicativeInv(this.value));
+    }
+
     div(other) {
 
         // If other is a Scalar instance
@@ -60,8 +69,19 @@ class Scalar {
         return new Scalar(this.field, this.field.div(this.value, other));
     }
 
-    inv() {
-        return this.field.inv(this.value);
+    pow(exponent) {
+        // If other is a Scalar instance
+        if(exponent instanceof Scalar) {
+            if(this.field.constructor.name !== exponent.field.constructor.name)  throw 'OperationOnDifferentFields';
+            return new Scalar(this.field, this.field.pow(this.value, exponent.value));
+        }
+
+        // other should be a number
+        return new Scalar(this.field, this.field.pow(this.value, exponent));
+    }
+
+    sqrt() {
+        return new Scalar(this.field, this.field.sqrt(this.value));
     }
 
     eq(other) {
