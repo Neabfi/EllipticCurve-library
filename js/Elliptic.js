@@ -139,7 +139,13 @@ class Elliptic {
         return NaN;
     }
 
-    division() {
+    division(p, np) {
+    	let n = 1;
+    	while(p!==np){
+    		p = sum(p,p);
+    		n = n+1;
+    	}
 
+    	return n;
     }
 }
