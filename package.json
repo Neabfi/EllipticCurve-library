@@ -1,0 +1,22 @@
+{
+  "name": "ellipticcurve_core",
+  "version": "1.0.0",
+  "description": "This is a library to manipulate elliptic curves.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neabfi/EllipticCurve-library.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Neabfi/EllipticCurve-library/issues"
+  },
+  "homepage": "https://github.com/Neabfi/EllipticCurve-library#readme"
+}
