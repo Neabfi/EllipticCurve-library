@@ -1,4 +1,4 @@
-if (typeof require === 'function') var Field = require('./Field');
+if (typeof require === 'function') Field = require('./Field');
 
 class RealField extends Field {
 
@@ -53,18 +53,17 @@ class RealField extends Field {
 
     /* Implement eq method */
     eq(element1, element2) {
-        // soustraction
-        return Math.abs(this.sub(element1 - element2)) < this.EPSILON;
+        return Math.abs(this.sub(element1, element2)) < RealField.EPSILON;
     }
 
     /* Implement isZero method */
     isZero(element) {
-        return eq(element, 0);
+        return this.eq(element, 0);
     }
 
     /* Implement isOne method */
     isOne(element) {
-        return eq(element, 1)
+        return this.eq(element, 1)
     }
 }
 

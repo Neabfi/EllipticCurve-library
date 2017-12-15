@@ -1,8 +1,13 @@
 if (typeof require === 'function') {
-    var Scalar = require('./Scalar');
-    var Point = require('./Point');
-    var ModuloField = require('./fields/ModuloField');
+    Scalar = require('./Scalar');
+    Point = require('./Point');
+    ModuloField = require('./fields/ModuloField');
+    const {
+        performance
+    } = require('perf_hooks');
 }
+
+const DIV_MAX_N = 100000;
 
 /**
  * Elliptic Curve class
@@ -27,6 +32,7 @@ class EllipticCurve {
      */
 	calc(x) {
         let y =  x.mul(this.a).add(x.mul(x.mul(x))).add(this.b);
+
 		if(x.field instanceof ModuloField) {
             let points = [];
             for(let i = 0; i < y.field.m; i++) {
@@ -35,11 +41,12 @@ class EllipticCurve {
 			return points;
 		}
 
-		if(y.value < 0) return NaN;
+		y = y.sqrt();
 
-		y.value = Math.sqrt(y.value);
+        if(!(y instanceof Scalar)) return [];
 
-		if(y.value === -(y.value)) {
+
+        if(y === y.additiveInv()) {
 		    return [new Point(x, y)]
         } else {
             return [new Point(x, y), new Point(x, new Scalar(y.field, -y.value))];
@@ -58,26 +65,35 @@ class EllipticCurve {
      */
 	sum(p1, p2) {
         // Check if p1 is neutral
-        if(p1.x.eq(0) && p1.z.eq(0)) { return p2;}
+        if (p1.z.isZero()) {
+            return p2;
+        }
 
         // Check if p2 is neutral
-        if(p2.x.eq(0) && p2.z.eq(0)) { return p1;}
+        if (p2.z.isZero()) {
+            return p1;
+        }
 
-		// If p1 and p2 are the same point
-        if(p1.eq(p2)) {
-
+        // If p1 and p2 are the same point
+        if (p1.eq(p2)) {
+            let A = p1.x.pow(2).mul(3).add(p1.z.pow(2).mul((this.a)));
+            let B = p1.x.pow(3).sub(p1.x.mul(p1.z.pow(2)).mul(this.a)).sub(p1.z.pow(3).mul(2).mul(this.b));
+            return new Point(
+                p1.y.mul(2).mul(p1.z).mul(A.pow(2).sub(p1.x.mul(8).mul(p1.y.pow(2)).mul(p1.z))),
+                p1.y.pow(2).mul(4).mul(p1.z).mul(A.mul(2).mul(p1.x).add(B)).sub(A.pow(3)),
+                p1.y.pow(3).mul(8).mul(p1.z.pow(3))
+            );
         } else { // If p1 and p2 are not the same point
-			let u = p1.x.mul(p2.z).sub(p2.x.mul(p1.z));
-			let v = p1.y.mul(p2.z).sub(p2.y.mul(p1.z));
-			let w = p1.x.mul(p2.y).sub(p2.x.sub(p1.y));
-			let s = p1.x.mul(p2.z).add(p2.x.mul(p1.z));
-			let t = p1.z.mul(p2.z);
-			let z = t.mul(u).mul(u).mul(u);
-			return new Point(
-                (t.mul(u).mul(v).mul(v).sub(s.mul(u).mul(u).mul(u))).div(z),
-                (s.mul(u).mul(u).mul(v).sub(t.mul(u).mul(u).mul(w)).sub(t.mul(v).mul(v).mul(v))).div(z))
-		}
-
+            let u = p1.x.mul(p2.z).sub(p2.x.mul(p1.z));
+            let v = p1.y.mul(p2.z).sub(p2.y.mul(p1.z));
+            let w = p1.x.mul(p2.y).sub(p2.x.mul(p1.y));
+            let s = p1.x.mul(p2.z).add(p2.x.mul(p1.z));
+            let t = p1.z.mul(p2.z);
+            return new Point(
+                (t.mul(u).mul(v.pow(2)).sub(s.mul(u.pow(3)))),
+                (s.mul(u.pow(2)).mul(v).sub(t.mul(u.pow(2)).mul(w)).sub(t.mul(v.pow(3)))),
+                t.mul(u.pow(3)));
+        }
 		/*
 		let m;
 
@@ -122,6 +138,8 @@ class EllipticCurve {
      * Multiplies two points of the curve
      * @param {Point} p point to multiply
      * @param {Number} d value to multiply
+     * @param mode
+     * @param {Enum} d value to multiply
      * @returns {Point} Result point
      * @example
      * let ellipticCurve = new Elliptic(-7, 10);
@@ -129,25 +147,60 @@ class EllipticCurve {
      * ellipticCurve.mult(point, 2);
      * // Return  Point(x = -1, y = -4, z = 1)
      */
-	mult(p, d) {
-		let n = p;
-        let q = 0;
-        let binaryString = d.toString(2);
-        for (let i = 0; i < binaryString.length; i++) {
-            if(binaryString[binaryString.length - i - 1] === '1') {
-                if (q === 0) {
-                    q =  n;
-                } else {
-                    q = this.sum(q, n);
+	mul(p, d, mode=null) {
+        let sum_count = 0;
+	    switch (mode) {
+            case 'repeatedSums':
+                let result = p;
+                while(d > 1) {
+                    result = this.sum(result, p);
+                    sum_count++;
+                    d--;
                 }
-            }
-            n = this.sum(n, n);
-		}
-        return q;
+                console.log('sum_count ' + sum_count);
+                console.log("Execution time " + (t1 - t0) + " milliseconds.");
+                return result;
+
+            case 'exp3':
+
+                break;
+
+            default:
+                let n = p;
+                let q = 0;
+                let binaryString = d.toString(2);
+                for (let i = 0; i < binaryString.length; i++) {
+                    if(binaryString[binaryString.length - i - 1] === '1') {
+                        if (q === 0) {
+                            q =  n;
+                        } else {
+                            q = this.sum(q, n);
+                            sum_count++;
+                        }
+                    }
+                    n = this.sum(n, n);
+                    sum_count++;
+                }
+                return q;
+        }
 	}
 
-    division() {
+    div(endPoint, startPoint, mode) {
+        let result = 1;
+        switch (mode) {
 
+            case 'naive':
+                let tempPoint = startPoint;
+                while(!tempPoint.eq(endPoint) && result < DIV_MAX_N) {
+                    tempPoint = this.sum(tempPoint, startPoint);
+                    result++;
+                }
+                break;
+
+            default:
+                break;
+        }
+        return result;
     }
 }
 

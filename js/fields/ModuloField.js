@@ -1,4 +1,4 @@
-if (typeof require === 'function') var Field = require('./Field');
+if (typeof require === 'function') Field = require('./Field');
 
 class ModuloField extends Field {
 
@@ -83,12 +83,12 @@ class ModuloField extends Field {
 
     /* Implement isZero method */
     isZero(element) {
-        return eq(element, 0);
+        return this.eq(element, 0);
     }
 
     /* Implement isOne method */
     isOne(element) {
-        return eq(element, 1)
+        return this.eq(element, 1)
     }
 }
 

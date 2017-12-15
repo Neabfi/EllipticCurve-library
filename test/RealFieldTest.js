@@ -159,4 +159,28 @@ describe('RealField', function() {
             assert.equal(element1.eq(element2), element2.eq(element1));
         });
     });
+
+    describe('#isZero', function() {
+        it('Should handle isZero', function() {
+            let element;
+            element = new Scalar(new RealField(), 0);
+            assert.equal(element.isZero(), true);
+            element = new Scalar(new RealField(), 2);
+            assert.equal(element.isZero(), false);
+            element = new Scalar(new RealField(), 0.000032);
+            assert.equal(element.isZero(), true);
+        });
+    });
+
+    describe('#isOne', function() {
+        it('Should handle isOne', function() {
+            let element;
+            element = new Scalar(new RealField(), 1);
+            assert.equal(element.isOne(), true);
+            element = new Scalar(new RealField(), 4);
+            assert.equal(element.isOne(), false);
+            element = new Scalar(new RealField(), 0.99999999);
+            assert.equal(element.isOne(), true);
+        });
+    });
 });

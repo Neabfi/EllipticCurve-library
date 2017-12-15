@@ -94,6 +94,14 @@ class Scalar {
         // other should be a number
         return this.field.eq(this.value, other);
     }
+
+    isZero() {
+        return this.field.isZero(this.value);
+    }
+
+    isOne() {
+        return this.field.isOne(this.value);
+    }
 }
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') module.exports = Scalar;
