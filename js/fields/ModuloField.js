@@ -38,7 +38,6 @@ class ModuloField extends Field {
     /* Implement multiplicativeInv method */
     multiplicativeInv(element) {
         element = ( +element ) % this.m;
-
         if( element < 0 ) {
             element = element + this.m;
         }
@@ -50,6 +49,32 @@ class ModuloField extends Field {
         }
         return NaN;
     }
+
+    /* Implement fractionInv method */
+    fractionInv(elementA, elementB) {  // A/B mod m
+        let n = 0;
+        if(elementB === 0){             // Test if B == 0. Algorithm can't be executed
+            console.log("Algorithm failed. Please try again!");
+            return NaN;
+        }
+        if(elementB < 0){elementB += this.m;}
+        if(elementA < 0){elementA += this.m;}
+
+        if(this.gcd(elementB, this.m) !== 1){
+            console.log("The denominator is not prime with the curve order. Please try again!")
+            return NaN;
+        }
+        console.log("gcd is ", this.gcd(elementB, this.m))
+
+        while( (elementB * n ) % this.m !== elementA ){
+            n++;
+            if(n===10000){return NaN;}
+        }
+        return n;
+    }
+
+    // Function Greatest common divider
+    gcd(a,b) {return ((a%=b)==0)? b: this.gcd(b,a);}
 
     /* Implement div method */
     div(element1, element2) {

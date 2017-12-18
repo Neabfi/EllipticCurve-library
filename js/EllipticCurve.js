@@ -167,7 +167,7 @@ class EllipticCurve {
 
             default:
                 let n = p;
-                let q = 0;
+                let q = new Point(new Scalar(m, 0), new Scalar(m, 1), new Scalar(m, 0)); // Point O
                 let binaryString = d.toString(2);
                 for (let i = 0; i < binaryString.length; i++) {
                     if(binaryString[binaryString.length - i - 1] === '1') {
@@ -185,6 +185,14 @@ class EllipticCurve {
         }
 	}
 
+    curveOrder(m){
+        let order = 1
+        for(let x=0; x<m; x++){
+            order += this.calc(new Scalar(new ModuloField(m), x)).length;
+        }
+        return order;
+    }
+
     div(endPoint, startPoint, mode) {
         let result = 1;
         switch (mode) {
@@ -198,6 +206,68 @@ class EllipticCurve {
                 break;
 
             default:
+                let mod = startPoint.x.field.m;
+                let groupOrder = this.curveOrder(mod);
+                console.log("order = ", groupOrder)
+
+                let rand = Math.floor(Math.random() * 10) + 1 ; // Random to avoid Pollard's algorithm problem between 1&9
+                console.log("rand = ",rand)
+
+                // Point Ri with 1 by 1 step
+                let ri = this.mul(startPoint, rand);             // Initial point  R = aP + bQ
+                let riA = rand;   // Initial a value of Ri
+                let riB = 0;      // Initial b value of Ri
+
+                // Point R2i with 2 by 2 step
+                let r2i = ri;
+                let r2iA = rand;
+                let r2iB = 0;
+
+            
+                let i = 0;
+                while(!ri.eq(r2i) || i === 0){                     // While Ri != R2i
+                                                        // Ri+1 = f(Ri)  Step 1 by 1
+                    if(ri.y.value < Math.trunc(mod/3)){ // 1st part : 0<=y<mod/3
+                        ri = this.sum(ri, endPoint);
+                        riB++;
+                    }else{
+                        if((ri.y.value >= Math.trunc(mod/3)) && (ri.y.value < Math.trunc(2*mod/3))){ // 2nd part : mod/3<=y<2mod/3
+                            ri = this.sum(ri, ri);
+                            riA = 2*riA%groupOrder;
+                            riB = 2*riB%groupOrder;
+                        }else{                              // 3rd part : 2mod/3<=y<mod
+                            ri = this.sum(ri, startPoint);
+                            riA++;
+                        }
+                    }
+
+                    for(let c = 0; c<2; c++){                   // Step 2 by 2
+                        if(r2i.y.value < Math.trunc(mod/3)){    // 1st part : 0<=y<mod/3
+                        r2i = this.sum(r2i, endPoint);
+                        r2iB++;
+                        }else{
+                            if((r2i.y.value >= Math.trunc(mod/3)) && (r2i.y.value < Math.trunc(2*mod/3))){ // 2nd part : mod/3<=y<2mod/3
+                                r2i = this.sum(r2i, r2i);
+                                r2iA = 2*r2iA%groupOrder;
+                                r2iB = 2*r2iB%groupOrder;
+                            }else{                              // 3rd part : 2mod/3<=y<mod
+                                r2i = this.sum(r2i, startPoint);
+                                r2iA++;
+                            }
+                        }
+                    }
+                    i++;
+
+                    if(i === 1000){
+                        console.log("Stopped after 1000 iterations. Points are all different.")
+                        break;}
+                }
+                console.log("i = ", i)
+                let modOrder = new ModuloField(groupOrder);
+
+                console.log("A, B : ", (r2iA - riA), (riB - r2iB))
+
+                result = modOrder.fractionInv(r2iA - riA, riB - r2iB);
                 break;
         }
         return result;
