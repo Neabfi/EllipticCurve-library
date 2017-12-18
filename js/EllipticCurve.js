@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 if (typeof require === 'function') {
     Scalar = require('./Scalar');
     Point = require('./Point');
