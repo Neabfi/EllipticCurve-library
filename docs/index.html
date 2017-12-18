@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>  | Documentation</title>
+  <title>ellipticcurve_core 1.0.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -13,8 +13,8 @@
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'></h3>
-          <div class='mb1'><code></code></div>
+          <h3 class='mb0 no-anchor'>ellipticcurve_core</h3>
+          <div class='mb1'><code>1.0.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -66,10 +66,82 @@
                 
                 <li><a
                   href='#field'
-                  class="">
+                  class=" toggle-sibling">
                   Field
-                  
+                  <span class='icon'>▸</span>
                 </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#fieldinit'
+                        class='regular pre-open'>
+                        #init
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldadd'
+                        class='regular pre-open'>
+                        #add
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldadditiveinv'
+                        class='regular pre-open'>
+                        #additiveInv
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldsub'
+                        class='regular pre-open'>
+                        #sub
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldmul'
+                        class='regular pre-open'>
+                        #mul
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldmultiplicativeinv'
+                        class='regular pre-open'>
+                        #multiplicativeInv
+                      </a></li>
+                      
+                      <li><a
+                        href='#fielddiv'
+                        class='regular pre-open'>
+                        #div
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldpow'
+                        class='regular pre-open'>
+                        #pow
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldsqrt'
+                        class='regular pre-open'>
+                        #sqrt
+                      </a></li>
+                      
+                      <li><a
+                        href='#fieldeq'
+                        class='regular pre-open'>
+                        #eq
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
                 
                 </li>
               
@@ -88,9 +160,9 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
-                        href='#pointequals'
+                        href='#pointeq'
                         class='regular pre-open'>
-                        #equals
+                        #eq
                       </a></li>
                       
                     </ul>
@@ -137,7 +209,7 @@
   <p>Elliptic Curve class</p>
 
 
-  <div class='pre p1 fill-light mt0'>new EllipticCurve(a: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, b: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, m: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+  <div class='pre p1 fill-light mt0'>new EllipticCurve(a: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, b: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
   
   
 
@@ -164,16 +236,6 @@
           <div>
             <span class='code bold'>b</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
 	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>m</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-            = <code>null</code>)</code>
-	    modulo
-
           </div>
           
         </div>
@@ -213,7 +275,7 @@
 
   
 
-  <p>Calculates the y for a given x</p>
+  <p>Return points on the curve for a given x</p>
 
 
   <div class='pre p1 fill-light mt0'>calc(x: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
@@ -249,10 +311,7 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-        y or 
-[
-y, -y
-]
+        array of points
 
       
     
@@ -512,6 +571,752 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='fieldinit'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>init(element)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Prepare an element to enter a field</p>
+
+
+  <div class='pre p1 fill-light mt0'>init(element: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    element to prepare
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        The prepared element
+
+      
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Element <span class="hljs-number">42</span> enters the field mod <span class="hljs-number">40</span>, it should now take the value  <span class="hljs-number">2.</span></pre>
+    
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldadd'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>add(element1, element2)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Fields must implement the addition operation</p>
+
+
+  <div class='pre p1 fill-light mt0'>add(element1: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>, element2: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    first element to add
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    second element to add
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the addition
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldadditiveinv'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>additiveInv(element)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Fields must implement additiveInv</p>
+
+
+  <div class='pre p1 fill-light mt0'>additiveInv(element: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    element to inverse
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        element inversed
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldsub'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>sub(element1, element2)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Substraction operation</p>
+
+
+  <div class='pre p1 fill-light mt0'>sub(element1: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>, element2: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    first element
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    element to add
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the substraction
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldmul'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>mul(element1, element2)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Fields must implement the multiplication operation</p>
+
+
+  <div class='pre p1 fill-light mt0'>mul(element1: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>, element2: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    first element to multiply
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    second element to multiply
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the multiplication
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldmultiplicativeinv'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>multiplicativeInv(element)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Fields must implement multiplicativeInv</p>
+
+
+  <div class='pre p1 fill-light mt0'>multiplicativeInv(element: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    element to inverse
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        element inversed
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fielddiv'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>div(element1, element2)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Division operation</p>
+
+
+  <div class='pre p1 fill-light mt0'>div(element1: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>, element2: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    quotient
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    dividend
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the division
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldpow'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>pow(base, exponent)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Pow operation</p>
+
+
+  <div class='pre p1 fill-light mt0'>pow(base: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>, exponent: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>base</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    base
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>exponent</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    exponent
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the pow
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldsqrt'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>sqrt(element)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Square root operation</p>
+
+
+  <div class='pre p1 fill-light mt0'>sqrt(element: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    base
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the pow
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='fieldeq'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>eq(element1, element2)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Fields must implement equality</p>
+
+
+  <div class='pre p1 fill-light mt0'>eq(element1: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>, element2: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    first element to compare
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>element2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a>)</code>
+	    second element to compare
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">element</a></code>:
+        Result of the comparison
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
 
   
 </section>
@@ -552,8 +1357,7 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>x</span> <code class='quiet'>(<a href="#scalar">Scalar</a>
-            = <code>0</code>)</code>
+            <span class='code bold'>x</span> <code class='quiet'>(<a href="#scalar">Scalar</a>)</code>
 	    
           </div>
           
@@ -561,8 +1365,7 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>y</span> <code class='quiet'>(<a href="#scalar">Scalar</a>
-            = <code>0</code>)</code>
+            <span class='code bold'>y</span> <code class='quiet'>(<a href="#scalar">Scalar</a>)</code>
 	    
           </div>
           
@@ -571,7 +1374,7 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>z</span> <code class='quiet'>(<a href="#scalar">Scalar</a>
-            = <code>1</code>)</code>
+            = <code>null</code>)</code>
 	    
           </div>
           
@@ -601,11 +1404,11 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='pointequals'>
+    <div class='border-bottom' id='pointeq'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>equals(p)</span>
+            <span class='code strong strong truncate'>eq(p)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -616,7 +1419,7 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
   <p>Check if two points are equal</p>
 
 
-  <div class='pre p1 fill-light mt0'>equals(p: <a href="#point">Point</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+  <div class='pre p1 fill-light mt0'>eq(p: <a href="#point">Point</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
   
   
 
@@ -664,7 +1467,7 @@ ellipticCurve.mult(point, <span class="hljs-number">2</span>);
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">let</span> mod5Field = <span class="hljs-keyword">new</span> ModuloField(<span class="hljs-number">5</span>);
 <span class="hljs-keyword">let</span> p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-keyword">new</span> Scalar(mod5Field, <span class="hljs-number">2</span>), <span class="hljs-keyword">new</span> Scalar(mod5Field, <span class="hljs-number">2</span>));
 <span class="hljs-keyword">let</span> p2 = <span class="hljs-keyword">new</span> Point(<span class="hljs-keyword">new</span> Scalar(mod5Field, <span class="hljs-number">7</span>), <span class="hljs-keyword">new</span> Scalar(mod5Field, <span class="hljs-number">7</span>));
-p2.equals(p1) <span class="hljs-comment">// True</span></pre>
+p2.eq(p1) <span class="hljs-comment">// True</span></pre>
     
   
 

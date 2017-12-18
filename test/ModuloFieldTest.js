@@ -157,4 +157,54 @@ describe('ModuloField', function() {
             assert.equal(element1.pow(element2).value, 9);
         });
     });
+
+    describe('#sqrt', function() {
+        it('Should handle sqrt', function() {
+            let element1 = new Scalar(new ModuloField(13), 2);
+            let element2 = new Scalar(new ModuloField(13), 8);
+            assert.equal(element1.sqrt(element2).value, 9);
+        });
+    });
+
+    describe('#eq', function() {
+        it('Should handle eq', function() {
+            let element1, element2;
+            element1 = new Scalar(new ModuloField(13), 4);
+            element2 = new Scalar(new ModuloField(13), 4);
+            assert.equal(element1.eq(element2), true);
+            assert.equal(element1.eq(element2), element2.eq(element1));
+            element1 = new Scalar(new ModuloField(13), 4);
+            element2 = new Scalar(new ModuloField(13), 5);
+            assert.equal(element1.eq(element2), false);
+            assert.equal(element1.eq(element2), element2.eq(element1));
+            element1 = new Scalar(new ModuloField(13), 26);
+            element2 = new Scalar(new ModuloField(13), 0);
+            assert.equal(element1.eq(element2), true);
+            assert.equal(element1.eq(element2), element2.eq(element1));
+        });
+    });
+
+    describe('#isZero', function() {
+        it('Should handle isZero', function() {
+            let element;
+            element = new Scalar(new ModuloField(13), 0);
+            assert.equal(element.isZero(), true);
+            element = new Scalar(new ModuloField(13), 4);
+            assert.equal(element.isZero(), false);
+            element = new Scalar(new ModuloField(13), 26);
+            assert.equal(element.isZero(), true);
+        });
+    });
+
+    describe('#isOne', function() {
+        it('Should handle isOne', function() {
+            let element;
+            element = new Scalar(new ModuloField(13), 1);
+            assert.equal(element.isOne(), true);
+            element = new Scalar(new ModuloField(13), 4);
+            assert.equal(element.isOne(), false);
+            element = new Scalar(new ModuloField(13), 27);
+            assert.equal(element.isOne(), true);
+        });
+    });
 });
