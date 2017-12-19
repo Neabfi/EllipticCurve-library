@@ -2,9 +2,6 @@ if (typeof require === 'function') {
     Scalar = require('./Scalar');
     Point = require('./Point');
     ModuloField = require('./fields/ModuloField');
-    const {
-        performance
-    } = require('perf_hooks');
 }
 
 const DIV_MAX_N = 100000;
